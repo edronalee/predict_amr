@@ -35,7 +35,7 @@
 
     <div class="card w-50 mx-auto">
       <div class="card-header">
-        Prediction Model
+        Performance Summary
       </div>
       <div class="card-body text-center">
         <div class="input-group mb-3">
@@ -57,77 +57,40 @@
     <br> 
 
     <div class="row mx-auto">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Predicted Antibiogram</h5>
-            <p class="card-text"></p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Antibiotic</th>
-                  <th scope="col">Prediction</th>
-                  <th scope="col">Accuracy</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Ciprofloxacin</td>
-                  <td>Resistant</td>
-                  <td>89%</td>
-                </tr>
-                <tr>
-                  <td>Cefotaxime</td>
-                  <td>Resistant</td>
-                  <td>91%</td>
-                </tr>
-                <tr>
-                  <td>Ceftriaxone</td>
-                  <td>Resistant</td>
-                  <td>87%</td>
-                </tr>
-                <tr>
-                  <td>Gentamicin</td>
-                  <td>Susceptible</td>
-                  <td>98%</td>
-                </tr>
-                <tr>
-                  <td>Levofloxacin</td>
-                  <td>Susceptible</td>
-                  <td>90%</td>
-                </tr>
-              </tbody>
-            </table>
+            <h5 class="card-title">Number of Samples</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Samples in dataset</h6>
+            <p class="card-text">Resistant: <br>
+              Susceptible: <br>
+              Total: <br> </p>
+            <h6 class="card-subtitle mb-2 text-muted">Samples in training & testing set</h6>
+            <p class="card-text">Training set: <br>
+              Testing set: <br>
+              </p>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Integrons associated with AMR</h5>
-            <p class="card-text"></p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Integrase Gene</th>
-                  <th scope="col">AMR Genes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Ciprofloxacin</td>
-                  <td>Resistant</td>
-                </tr>
-                <tr>
-                  <td>Cefotaxime</td>
-                  <td>Resistant</td>
-                </tr>
-                <tr>
-                  <td>Ceftriaxone</td>
-                  <td>Resistant</td>
-                </tr>
-              </tbody>
-            </table>
+            <h5 class="card-title">Confusion Matrix of Testing Set</h5>
+            
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Performance Statistics</h5>
+            <p class="card-text">Accuracy: <br>
+              Precision: <br>
+              Recall: <br> 
+              Matthew's correlation coefficient: <br>
+              Area under the ROC curve: <br>
+              ROC curve: <br> </p>
           </div>
         </div>
       </div>
