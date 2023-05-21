@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from dashboard.forms import *
+import subprocess
 
 import os
 from django.conf import settings
@@ -20,10 +21,23 @@ def antibiogram(request):
             uploaded_file = request.FILES['fasta_file']
             filename = handle_uploaded_file(uploaded_file)
             
-            print('testinggggg')
-            # Run IntegronFinder and Abricate subprocesses on the saved file
-            # integron_output = subprocess.check_output(['integron_finder', '-i', filename])
-            # abricate_output = subprocess.check_output(['abricate', filename])
+            # print('testinggggg ' + filename)
+
+            # Run IntegronFinder
+            subprocess.check_call(['integron_finder', '--local-max', filename], cwd = '/home/vboxuser/predict_amr/media')
+            
+            # Run Abricate
+            abricate_output = subprocess.check_output(['./abricate/bin/abricate', '--db', 'resfinder', '/home/vboxuser/predict_amr/media/'+filename], cwd = '/home/vboxuser')
+            abricate_output = abricate_output.decode('utf-8')
+
+            print(abricate_output)
+
+            abricate_lines = abricate_output.strip().split('\n')
+            abricate_gene_products = set(abricate_line.split()[13] for abricate_line in abricate_lines[1:])
+
+            for abricate_gene_product in abricate_gene_products:
+                print(abricate_gene_product)
+
             
             # Process the output data and return the predictions
             # predictions = process_output(integron_output, abricate_output)
@@ -42,12 +56,6 @@ def handle_uploaded_file(uploaded_file):
     """
     filename = uploaded_file.name
     file_path = os.path.join(settings.MEDIA_ROOT, filename)
-    
-    # Check if a file with the same name already exists
-    #if os.path.exists(file_path):
-        # If the file exists, add a suffix to the filename to make it unique
-    #    filename = f'{os.path.splitext(filename)[0]}_{uuid.uuid4().hex}{os.path.splitext(filename)[1]}'
-    #    file_path = os.path.join(settings.MEDIA_ROOT, filename)
     
     # Write the uploaded file data to the new file
     with open(file_path, 'wb+') as destination:
