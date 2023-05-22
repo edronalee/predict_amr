@@ -122,7 +122,8 @@ def antibiogram(request):
 
             context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
                         'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
-                        'levofloxacin_prediction':levofloxacin_prediction, 'form': form}
+                        'levofloxacin_prediction':levofloxacin_prediction, 'integron_presence':integron_presence, 'form': form,
+                        'abricate_gene_products':abricate_gene_products, 'filename':filename}
             # Render the template with the predictions
             return render(request, 'antibiogram.html', context)
     return render(request, 'antibiogram.html', {'form': form})

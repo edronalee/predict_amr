@@ -1,0 +1,3 @@
+# cmd: integron_finder --local-max HQ880256.fasta
+ID_replicon	CALIN	complete	In0	topology	size
+HQ880256.1	0	0	0	lin	741

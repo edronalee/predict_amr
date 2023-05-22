@@ -63,7 +63,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Predicted Antibiogram</h5>
-            <p class="card-text"></p>
+            <p class="card-text">Filename:  {{ filename }}</p>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -106,19 +106,19 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Integrons associated with AMR</h5>
-            <p class="card-text"></p>
+            <h5 class="card-title">Integron and AMR Genes</h5>
+            <p class="card-text">Filename:  {{ filename }}</p>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Integrase Gene</th>
-                  <th scope="col">AMR Genes</th>
+                  <th scope="row">Integron:</th>
+                  <td scope="col">{% if integron_presence == 0 %} Integron not found {% elif integron_presence == 1 %} Integron found {% else %} {% endif %}</td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>int1</td>
-                  <td>dfrA</td>
+                  <th scope="row">AMR Genes:</th>
+                  <td>{{ abricate_gene_products | join:", "}}</td>
                 </tr>
               </tbody>
             </table>
