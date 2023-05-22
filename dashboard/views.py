@@ -5,10 +5,14 @@ import subprocess
 import os
 from django.conf import settings
 
-#Import and load the SVM model
+#Import and load the ML model
 import joblib
 import pickle
-svm_model = joblib.load('svm_model.pkl')
+cefotaxime_svm_model = joblib.load('cefotaxime_svm_model.pkl')
+ceftriaxone_rf_model = joblib.load('ceftriaxone_rf_model.pkl')
+ciprofloxacin_xgboost_model = joblib.load('ciprofloxacin_xgboost_model.pkl')
+gentamicin_xgboost_model = joblib.load('gentamicin_xgboost_model.pkl')
+levofloxacin_xgboost_model = joblib.load('levofloxacin_xgboost_model.pkl')
 
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -95,18 +99,27 @@ def antibiogram(request):
 
             # Add the integron presence feature to the DataFrame
             features_df['Integron_Presence'] = integron_presence
-            print('ito features df')
-            print(features_df)
 
-            # Load the SVM model
-            svm_model = joblib.load('svm_model.pkl')
+            # Load the ML models
+            cefotaxime_svm_model = joblib.load('cefotaxime_svm_model.pkl')
+            ceftriaxone_rf_model = joblib.load('ceftriaxone_rf_model.pkl')
+            ciprofloxacin_xgboost_model = joblib.load('ciprofloxacin_xgboost_model.pkl')
+            gentamicin_xgboost_model = joblib.load('gentamicin_xgboost_model.pkl')
+            levofloxacin_xgboost_model = joblib.load('levofloxacin_xgboost_model.pkl')
 
-            # Perform prediction using the SVM model
-            prediction = svm_model.predict(features_df)
-            print('ito prediction')
-            print(prediction)
+            # Perform prediction using the models
+            cefotaxime_prediction = cefotaxime_svm_model.predict(features_df)
+            ceftriaxone_prediction = ceftriaxone_rf_model.predict(features_df)
+            ciprofloxacin_prediction = ciprofloxacin_xgboost_model.predict(features_df)
+            gentamicin_prediction = gentamicin_xgboost_model.predict(features_df)
+            levofloxacin_prediction = levofloxacin_xgboost_model.predict(features_df)
+            print('mga prediction')
+            print(cefotaxime_prediction)
+            print(ceftriaxone_prediction)
+            print(ciprofloxacin_prediction)
+            print(gentamicin_prediction)
+            print(levofloxacin_prediction)
         
-            
             # Render the template with the predictions
             # return render(request, 'prediction.html', {'predictions': predictions})
     return render(request, 'antibiogram.html', {'form': form})
