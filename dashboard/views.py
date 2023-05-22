@@ -65,11 +65,11 @@ def antibiogram(request):
 
             # Convert the encoded features to a DataFrame if needed
             features_df = pd.DataFrame(encoded_features, columns=mlb.classes_)
-            print(features_df)
+            # print(features_df)
 
             # Concatenate integron presence DataFrame with features DataFrame
             processed_data = pd.concat([features_df, integron_df], axis=1)
-            print(processed_data)
+            # print(processed_data)
 
             # Get the list of AMR genes used during training from the SVM model excluding the integron_presence column
             amr_genes = [
@@ -119,9 +119,12 @@ def antibiogram(request):
             print(ciprofloxacin_prediction)
             print(gentamicin_prediction)
             print(levofloxacin_prediction)
-        
+
+            context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
+                        'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
+                        'levofloxacin_prediction':levofloxacin_prediction, 'form': form}
             # Render the template with the predictions
-            # return render(request, 'prediction.html', {'predictions': predictions})
+            return render(request, 'antibiogram.html', context)
     return render(request, 'antibiogram.html', {'form': form})
 
 def modeldetails(request):
