@@ -16,6 +16,8 @@ levofloxacin_xgboost_model = joblib.load('levofloxacin_xgboost_model.pkl')
 
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_curve, roc_auc_score, matthews_corrcoef, confusion_matrix
 
 # Create your views here.
 def about(request):
@@ -120,6 +122,12 @@ def antibiogram(request):
             print(gentamicin_prediction)
             print(levofloxacin_prediction)
 
+            # Metrics result
+            # Make predictions on the test set
+            #y_pred = cefotaxime_svm_model.predict(X_test)
+            # Calculate the classification metrics
+            #accuracy = accuracy_score(y_test, y_pred)
+
             context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
                         'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
                         'levofloxacin_prediction':levofloxacin_prediction, 'integron_presence':integron_presence, 'form': form,
@@ -129,7 +137,61 @@ def antibiogram(request):
     return render(request, 'antibiogram.html', {'form': form})
 
 def modeldetails(request):
-    return render(request, 'modeldetails.html', {})
+    # Load the test data
+    features_data = pd.read_excel('processed_data.xlsx')
+    target = pd.read_excel('combined_dataset.xlsx')
+
+    cefotaxime_target = target['Cefotaxime_Resistance']
+    ceftriaxone_target = target['Ceftriaxone_Resistance']
+    ciprofloxacin_target = target['Ciprofloxacin_Resistance'] 
+    gentamicin_target = target['Gentamicin_Resistance']
+    levofloxacin_target = target['Levofloxacin_Resistance']
+
+    # ----- Cefotaxime -----
+    # Split the data into training and testing sets
+    X_train1, X_test1, y_train1, y_test1 = train_test_split(features_data, cefotaxime_target, test_size=0.3, random_state=42)
+
+    # Make predictions on the test set using the loaded model
+    y_pred1 = cefotaxime_svm_model.predict(X_test1)
+
+    # Calculate the metrics using the test data and predictions
+    accuracy1 = accuracy_score(y_test1, y_pred1)
+    precision1 = precision_score(y_test1, y_pred1)
+    recall1 = recall_score(y_test1, y_pred1)
+
+    # Calculate the ROC curve and AUC
+    fpr1, tpr1, thresholds1 = roc_curve(y_test1, y_pred1)
+    auc1 = roc_auc_score(y_test1, y_pred1)
+
+    # Calculate the MCC
+    mcc1 = matthews_corrcoef(y_test1, y_pred1)
+
+    # ----- Ceftriaxone -----
+    # Split the data into training and testing sets
+    X_train2, X_test2, y_train2, y_test2 = train_test_split(features_data, ceftriaxone_target, test_size=0.3, random_state=42)
+
+    # Make predictions on the test set using the loaded model
+    y_pred2 = ceftriaxone_rf_model.predict(X_test2)
+
+    # Calculate the metrics using the test data and predictions
+    accuracy2 = accuracy_score(y_test2, y_pred2)
+    precision2 = precision_score(y_test2, y_pred2)
+    recall2 = recall_score(y_test2, y_pred2)
+
+    # Calculate the ROC curve and AUC
+    fpr2, tpr2, thresholds2 = roc_curve(y_test2, y_pred2)
+    auc2 = roc_auc_score(y_test2, y_pred2)
+
+    # Calculate the MCC
+    mcc2 = matthews_corrcoef(y_test2, y_pred2)
+
+
+    # Pass the metrics scores to the template
+    context = {
+        'accuracy1': accuracy1, 'precision1': precision1, 'recall1': recall1, 'mcc1':mcc1, 'auc1':auc1,
+        'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2
+    }
+    return render(request, 'modeldetails.html', context)
 
 def handle_uploaded_file(uploaded_file):
     """

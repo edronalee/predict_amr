@@ -41,9 +41,9 @@
         <div class="input-group mb-3">
           <select class="custom-select" id="inputGroupSelect02">
             <option selected>Choose antibiotic</option>
-            <option value="1">Ciprofloxacin</option>
-            <option value="2">Cefotaxime</option>
-            <option value="3">Ceftriaxone</option>
+            <option value="1">Cefotaxime</option>
+            <option value="2">Ceftriaxone</option>
+            <option value="3">Ciprofloxacin</option>
             <option value="4">Gentamicin</option>
             <option value="5">Levofloxacin</option>
           </select>
@@ -57,6 +57,7 @@
     <br> 
 
     <div class="row mx-auto">
+
       <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
@@ -72,29 +73,61 @@
           </div>
         </div>
       </div>
+
       <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Confusion Matrix of Testing Set</h5>
-            
-            
           </div>
         </div>
       </div>
+
       <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Performance Statistics</h5>
-            <p class="card-text">Accuracy: <br>
-              Precision: <br>
-              Recall: <br> 
-              Matthew's correlation coefficient: <br>
-              Area under the ROC curve: <br>
-              ROC curve: <br> </p>
+            <p class="card-text">
+              <b>Accuracy:</b> <span id="accuracy"></span><br>
+              <b>Precision:</b> <span id="precision"></span><br>
+              <b>Recall:</b> <span id="recall"></span><br>
+              <b>Matthew's correlation coefficient:</b> <span id="mcc"></span><br>
+              <b>Area under the ROC curve:</b> <span id="auc"></span><br>
+              <b>ROC curve:</b> <span id="roc"></span><br>
+            </p>
           </div>
         </div>
       </div>
+
     </div>
+
+    <script>
+      // Add an event listener to the dropdown menu
+      var dropdown = document.getElementById("inputGroupSelect02");
+      dropdown.addEventListener("change", function() {
+        var selectedOption = dropdown.value;
+        updatePerformanceStats(selectedOption);
+      });
+
+      function updatePerformanceStats(selectedOption) {
+      // Update the performance statistics based on the selected antibiotic option
+        if (selectedOption === "1") {
+          document.getElementById("accuracy").innerText = "{{ accuracy1 }}";
+          document.getElementById("precision").innerText = "{{ precision1 }}";
+          document.getElementById("recall").innerText = "{{ recall1 }}";
+          document.getElementById("mcc").innerText = "{{ mcc1 }}";
+          document.getElementById("auc").innerText = "{{ auc1 }}";
+          document.getElementById("roc").innerText = "{{ roc_curve }}";
+        } else if (selectedOption === "2") {
+          document.getElementById("accuracy").innerText = "{{ accuracy2 }}";
+          document.getElementById("precision").innerText = "{{ precision2 }}";
+          document.getElementById("recall").innerText = "{{ recall2 }}";
+          document.getElementById("mcc").innerText = "{{ mcc2 }}";
+          document.getElementById("auc").innerText = "{{ auc2 }}";
+          document.getElementById("roc").innerText = "{{ roc_curve }}";
+        }
+      }
+    </script>
+
   
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
