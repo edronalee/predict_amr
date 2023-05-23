@@ -18,6 +18,12 @@ import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_curve, roc_auc_score, matthews_corrcoef, confusion_matrix
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import seaborn as sns
+import io
+import base64
 
 # Create your views here.
 def about(request):
@@ -166,6 +172,17 @@ def modeldetails(request):
     # Calculate the MCC
     mcc1 = matthews_corrcoef(y_test1, y_pred1)
 
+    # Plot the ROC curve
+    fig, ax = plt.subplots()
+    ax.plot(fpr1, tpr1, label='ROC curve (area = %.2f)' % auc1)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Random guess')
+    ax.set_title('ROC curve')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.grid(True)
+    ax.legend()
+    plt.savefig('static/cefotaxime_roc_curve.png')  # Save the figure as a file
+
     # ----- Ceftriaxone -----
     # Split the data into training and testing sets
     X_train2, X_test2, y_train2, y_test2 = train_test_split(features_data, ceftriaxone_target, test_size=0.3, random_state=42)
@@ -185,11 +202,71 @@ def modeldetails(request):
     # Calculate the MCC
     mcc2 = matthews_corrcoef(y_test2, y_pred2)
 
+    # ----- Ciprofloxacin -----
+    # Split the data into training and testing sets
+    X_train3, X_test3, y_train3, y_test3 = train_test_split(features_data, ciprofloxacin_target, test_size=0.3, random_state=4)
+
+    # Make predictions on the test set using the loaded model
+    y_pred3 = ciprofloxacin_xgboost_model.predict(X_test3)
+
+    # Calculate the metrics using the test data and predictions
+    accuracy3 = accuracy_score(y_test3, y_pred3)
+    precision3 = precision_score(y_test3, y_pred3)
+    recall3 = recall_score(y_test3, y_pred3)
+
+    # Calculate the ROC curve and AUC
+    fpr3, tpr3, thresholds3 = roc_curve(y_test3, y_pred3)
+    auc3 = roc_auc_score(y_test3, y_pred3)
+
+    # Calculate the MCC
+    mcc3 = matthews_corrcoef(y_test3, y_pred3)
+
+    # ----- Gentamicin -----
+    # Split the data into training and testing sets
+    X_train4, X_test4, y_train4, y_test4 = train_test_split(features_data, gentamicin_target, test_size=0.3, random_state=3)
+
+    # Make predictions on the test set using the loaded model
+    y_pred4 = gentamicin_xgboost_model.predict(X_test4)
+
+    # Calculate the metrics using the test data and predictions
+    accuracy4 = accuracy_score(y_test4, y_pred4)
+    precision4 = precision_score(y_test4, y_pred4)
+    recall4 = recall_score(y_test4, y_pred4)
+
+    # Calculate the ROC curve and AUC
+    fpr4, tpr4, thresholds4 = roc_curve(y_test4, y_pred4)
+    auc4 = roc_auc_score(y_test4, y_pred4)
+
+    # Calculate the MCC
+    mcc4 = matthews_corrcoef(y_test4, y_pred4)
+
+    # ----- Levofloxacin -----
+    # Split the data into training and testing sets
+    X_train5, X_test5, y_train5, y_test5 = train_test_split(features_data, levofloxacin_target, test_size=0.3, random_state=42)
+
+    # Make predictions on the test set using the loaded model
+    y_pred5 = levofloxacin_xgboost_model.predict(X_test5)
+
+    # Calculate the metrics using the test data and predictions
+    accuracy5 = accuracy_score(y_test5, y_pred5)
+    precision5 = precision_score(y_test5, y_pred5)
+    recall5 = recall_score(y_test5, y_pred5)
+
+    # Calculate the ROC curve and AUC
+    fpr5, tpr5, thresholds5 = roc_curve(y_test5, y_pred5)
+    auc5 = roc_auc_score(y_test5, y_pred5)
+
+    # Calculate the MCC
+    mcc5 = matthews_corrcoef(y_test5, y_pred5)
 
     # Pass the metrics scores to the template
     context = {
         'accuracy1': accuracy1, 'precision1': precision1, 'recall1': recall1, 'mcc1':mcc1, 'auc1':auc1,
-        'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2
+        'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2,
+        'accuracy3': accuracy3, 'precision3': precision3, 'recall3': recall3, 'mcc3':mcc3, 'auc3':auc3,
+        'accuracy4': accuracy4, 'precision4': precision4, 'recall4': recall4, 'mcc4':mcc4, 'auc4':auc4,
+        'accuracy5': accuracy5, 'precision5': precision5, 'recall5': recall5, 'mcc5':mcc5, 'auc5':auc5,
+        'cefotaxime_roc_curve': 'static/cefotaxime_roc_curve.png'
     }
     return render(request, 'modeldetails.html', context)
 
