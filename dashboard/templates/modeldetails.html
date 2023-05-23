@@ -78,6 +78,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Confusion Matrix of Testing Set</h5>
+            <p class="card-text">
+              <span id="cm"></span>
+            </p>
           </div>
         </div>
       </div>
@@ -86,6 +89,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Performance Statistics</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Model: <span id="model"></span></h6>
             <p class="card-text">
               <b>Accuracy:</b> <span id="accuracy"></span><br>
               <b>Precision:</b> <span id="precision"></span><br>
@@ -111,6 +115,7 @@
       function updatePerformanceStats(selectedOption) {
       // Update the performance statistics based on the selected antibiotic option
         if (selectedOption === "1") {
+          document.getElementById("model").innerText = "Support Vector Machine";
           document.getElementById("accuracy").innerText = "{{ accuracy1 }}";
           document.getElementById("precision").innerText = "{{ precision1 }}";
           document.getElementById("recall").innerText = "{{ recall1 }}";
@@ -118,38 +123,47 @@
           document.getElementById("auc").innerText = "{{ auc1 }}";
           document.getElementById("roc").innerText = "{{ roc_curve }}";
           document.getElementById("roc").innerHTML = '<img src="{% static "cefotaxime_roc_curve.png" %}" alt="ROC curve" width="400" height="300">';
+          document.getElementById("cm").innerHTML = '<img src="{% static "cefotaxime_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         } 
         else if (selectedOption === "2") {
+          document.getElementById("model").innerText = "Random Forest";
           document.getElementById("accuracy").innerText = "{{ accuracy2 }}";
           document.getElementById("precision").innerText = "{{ precision2 }}";
           document.getElementById("recall").innerText = "{{ recall2 }}";
           document.getElementById("mcc").innerText = "{{ mcc2 }}";
           document.getElementById("auc").innerText = "{{ auc2 }}";
-          document.getElementById("roc").innerText = "{{ roc_curve }}";
+          document.getElementById("roc").innerHTML = '<img src="{% static "ceftriaxone_roc_curve.png" %}" alt="ROC curve" width="400" height="300">';
+          document.getElementById("cm").innerHTML = '<img src="{% static "ceftriaxone_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
         else if (selectedOption === "3") {
+          document.getElementById("model").innerText = "Extreme Gradient Boost";
           document.getElementById("accuracy").innerText = "{{ accuracy3 }}";
           document.getElementById("precision").innerText = "{{ precision3 }}";
           document.getElementById("recall").innerText = "{{ recall3 }}";
           document.getElementById("mcc").innerText = "{{ mcc3 }}";
           document.getElementById("auc").innerText = "{{ auc3 }}";
-          document.getElementById("roc").innerText = "{{ roc_curve }}";
+          document.getElementById("roc").innerHTML = '<img src="{% static "ciprofloxacin_roc_curve.png" %}" alt="ROC curve" width="400" height="300">';
+          document.getElementById("cm").innerHTML = '<img src="{% static "ciprofloxacin_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
         else if (selectedOption === "4") {
+          document.getElementById("model").innerText = "Extreme Gradient Boost";
           document.getElementById("accuracy").innerText = "{{ accuracy4 }}";
           document.getElementById("precision").innerText = "{{ precision4 }}";
           document.getElementById("recall").innerText = "{{ recall4 }}";
           document.getElementById("mcc").innerText = "{{ mcc4 }}";
           document.getElementById("auc").innerText = "{{ auc4 }}";
-          document.getElementById("roc").innerText = "{{ roc_curve }}";
+          document.getElementById("roc").innerHTML = '<img src="{% static "gentamicin_roc_curve.png" %}" alt="ROC curve" width="400" height="300">';
+          document.getElementById("cm").innerHTML = '<img src="{% static "gentamicin_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
         else if (selectedOption === "5") {
+          document.getElementById("model").innerText = "Extreme Gradient Boost";
           document.getElementById("accuracy").innerText = "{{ accuracy5 }}";
           document.getElementById("precision").innerText = "{{ precision5 }}";
           document.getElementById("recall").innerText = "{{ recall5 }}";
           document.getElementById("mcc").innerText = "{{ mcc5 }}";
           document.getElementById("auc").innerText = "{{ auc5 }}";
-          document.getElementById("roc").innerText = "{{ roc_curve }}";
+          document.getElementById("roc").innerHTML = '<img src="{% static "levofloxacin_roc_curve.png" %}" alt="ROC curve" width="400" height="300">';
+          document.getElementById("cm").innerHTML = '<img src="{% static "levofloxacin_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
       }
     </script>

@@ -182,6 +182,17 @@ def modeldetails(request):
     ax.grid(True)
     ax.legend()
     plt.savefig('static/cefotaxime_roc_curve.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+    # Generate confusion matrix
+    cm1 = confusion_matrix(y_test1, y_pred1)
+    fig, ax = plt.subplots()
+    sns.heatmap(cm1, annot=True, fmt='g', cmap='Blues', ax=ax)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+    plt.savefig('static/cefotaxime_confusion_matrix.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
 
     # ----- Ceftriaxone -----
     # Split the data into training and testing sets
@@ -202,6 +213,28 @@ def modeldetails(request):
     # Calculate the MCC
     mcc2 = matthews_corrcoef(y_test2, y_pred2)
 
+    # Plot the ROC curve
+    fig, ax = plt.subplots()
+    ax.plot(fpr2, tpr2, label='ROC curve (area = %.2f)' % auc2)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Random guess')
+    ax.set_title('ROC curve')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.grid(True)
+    ax.legend()
+    plt.savefig('static/ceftriaxone_roc_curve.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+    # Generate confusion matrix
+    cm2 = confusion_matrix(y_test2, y_pred2)
+    fig, ax = plt.subplots()
+    sns.heatmap(cm2, annot=True, fmt='g', cmap='Blues', ax=ax)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+    plt.savefig('static/ceftriaxone_confusion_matrix.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+
     # ----- Ciprofloxacin -----
     # Split the data into training and testing sets
     X_train3, X_test3, y_train3, y_test3 = train_test_split(features_data, ciprofloxacin_target, test_size=0.3, random_state=4)
@@ -220,6 +253,28 @@ def modeldetails(request):
 
     # Calculate the MCC
     mcc3 = matthews_corrcoef(y_test3, y_pred3)
+
+    # Plot the ROC curve
+    fig, ax = plt.subplots()
+    ax.plot(fpr3, tpr3, label='ROC curve (area = %.2f)' % auc3)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Random guess')
+    ax.set_title('ROC curve')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.grid(True)
+    ax.legend()
+    plt.savefig('static/ciprofloxacin_roc_curve.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+    # Generate confusion matrix
+    cm3 = confusion_matrix(y_test3, y_pred3)
+    fig, ax = plt.subplots()
+    sns.heatmap(cm3, annot=True, fmt='g', cmap='Blues', ax=ax)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+    plt.savefig('static/ciprofloxacin_confusion_matrix.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
 
     # ----- Gentamicin -----
     # Split the data into training and testing sets
@@ -240,6 +295,28 @@ def modeldetails(request):
     # Calculate the MCC
     mcc4 = matthews_corrcoef(y_test4, y_pred4)
 
+    # Plot the ROC curve
+    fig, ax = plt.subplots()
+    ax.plot(fpr4, tpr4, label='ROC curve (area = %.2f)' % auc4)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Random guess')
+    ax.set_title('ROC curve')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.grid(True)
+    ax.legend()
+    plt.savefig('static/gentamicin_roc_curve.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+    # Generate confusion matrix
+    cm4 = confusion_matrix(y_test4, y_pred4)
+    fig, ax = plt.subplots()
+    sns.heatmap(cm4, annot=True, fmt='g', cmap='Blues', ax=ax)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+    plt.savefig('static/gentamicin_confusion_matrix.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+
     # ----- Levofloxacin -----
     # Split the data into training and testing sets
     X_train5, X_test5, y_train5, y_test5 = train_test_split(features_data, levofloxacin_target, test_size=0.3, random_state=42)
@@ -259,14 +336,35 @@ def modeldetails(request):
     # Calculate the MCC
     mcc5 = matthews_corrcoef(y_test5, y_pred5)
 
+    # Plot the ROC curve
+    fig, ax = plt.subplots()
+    ax.plot(fpr5, tpr5, label='ROC curve (area = %.2f)' % auc5)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Random guess')
+    ax.set_title('ROC curve')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.grid(True)
+    ax.legend()
+    plt.savefig('static/levofloxacin_roc_curve.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+    # Generate confusion matrix
+    cm5 = confusion_matrix(y_test5, y_pred5)
+    fig, ax = plt.subplots()
+    sns.heatmap(cm5, annot=True, fmt='g', cmap='Blues', ax=ax)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+    plt.savefig('static/levofloxacin_confusion_matrix.png')  # Save the figure as a file
+    plt.close(fig)  # Close the figure
+
+
     # Pass the metrics scores to the template
     context = {
         'accuracy1': accuracy1, 'precision1': precision1, 'recall1': recall1, 'mcc1':mcc1, 'auc1':auc1,
         'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2,
         'accuracy3': accuracy3, 'precision3': precision3, 'recall3': recall3, 'mcc3':mcc3, 'auc3':auc3,
         'accuracy4': accuracy4, 'precision4': precision4, 'recall4': recall4, 'mcc4':mcc4, 'auc4':auc4,
-        'accuracy5': accuracy5, 'precision5': precision5, 'recall5': recall5, 'mcc5':mcc5, 'auc5':auc5,
-        'cefotaxime_roc_curve': 'static/cefotaxime_roc_curve.png'
+        'accuracy5': accuracy5, 'precision5': precision5, 'recall5': recall5, 'mcc5':mcc5, 'auc5':auc5
     }
     return render(request, 'modeldetails.html', context)
 
