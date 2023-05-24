@@ -69,34 +69,34 @@
                 <tr>
                   <th scope="col">Antibiotic</th>
                   <th scope="col">Prediction</th>
-                  <th scope="col">Accuracy</th>
+                  {# <th scope="col">Model Accuracy</th> #}
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Cefotaxime</td>
                   <td>{% if cefotaxime_prediction == 0 %} Susceptible {% elif cefotaxime_prediction == 1 %} Resistant {% else %} {% endif %}</td>
-                  <td>-</td>
+                  {# <td>-</td> #}
                 </tr>
                 <tr>
                   <td>Ceftriaxone</td>
                   <td>{% if ceftriaxone_prediction == 0 %} Susceptible {% elif ceftriaxone_prediction == 1 %} Resistant {% else %} {% endif %}</td>
-                  <td>-</td>
+                  {# <td>-</td> #}
                 </tr>
                 <tr>
                   <td>Ciprofloxacin</td>
                   <td>{% if ciprofloxacin_prediction == 0 %} Susceptible {% elif ciprofloxacin_prediction == 1 %} Resistant {% else %} {% endif %}</td>
-                  <td>-</td>
+                  {# <td>-</td> #}
                 </tr>
                 <tr>
                   <td>Gentamicin</td>
                   <td>{% if gentamicin_prediction == 0 %} Susceptible {% elif gentamicin_prediction == 1 %} Resistant {% else %} {% endif %}</td>
-                  <td>-</td>
+                  {# <td>-</td> #}
                 </tr>
                 <tr>
                   <td>Levofloxacin</td>
                   <td>{% if levofloxacin_prediction == 0 %} Susceptible {% elif levofloxacin_prediction == 1 %} Resistant {% else %} {% endif %}</td>
-                  <td>-</td>
+                  {# <td>-</td> #}
                 </tr>
               </tbody>
             </table>

@@ -64,8 +64,7 @@ def antibiogram(request):
 
             for abricate_gene_product in abricate_gene_products:
                 print(abricate_gene_product)
-
-            
+                
             # Create a feature vector using one-hot encoding
             mlb = MultiLabelBinarizer()
             encoded_features = mlb.fit_transform([abricate_gene_products])
@@ -120,12 +119,6 @@ def antibiogram(request):
             ciprofloxacin_prediction = ciprofloxacin_xgboost_model.predict(features_df)
             gentamicin_prediction = gentamicin_xgboost_model.predict(features_df)
             levofloxacin_prediction = levofloxacin_xgboost_model.predict(features_df)
-            print('mga prediction')
-            print(cefotaxime_prediction)
-            print(ceftriaxone_prediction)
-            print(ciprofloxacin_prediction)
-            print(gentamicin_prediction)
-            print(levofloxacin_prediction)
 
             context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
                         'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
