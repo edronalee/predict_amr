@@ -22,8 +22,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
-import io
-import base64
+
 
 # Create your views here.
 def about(request):
@@ -128,12 +127,6 @@ def antibiogram(request):
             print(gentamicin_prediction)
             print(levofloxacin_prediction)
 
-            # Metrics result
-            # Make predictions on the test set
-            #y_pred = cefotaxime_svm_model.predict(X_test)
-            # Calculate the classification metrics
-            #accuracy = accuracy_score(y_test, y_pred)
-
             context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
                         'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
                         'levofloxacin_prediction':levofloxacin_prediction, 'integron_presence':integron_presence, 'form': form,
@@ -171,6 +164,18 @@ def modeldetails(request):
 
     # Calculate the MCC
     mcc1 = matthews_corrcoef(y_test1, y_pred1)
+
+    # Total number of samples in the dataset
+    num_resistant1 = target['Cefotaxime_Resistance'].value_counts()[1]
+    num_susceptible1 = target['Cefotaxime_Resistance'].value_counts()[0]
+    total_samples1 = len(cefotaxime_target)
+
+    # Number of samples in the training set
+    num_train_samples1 = len(X_train1)
+
+    # Number of samples in the testing set
+    num_test_samples1 = len(X_test1)
+
 
     # Plot the ROC curve
     fig, ax = plt.subplots()
@@ -213,6 +218,17 @@ def modeldetails(request):
     # Calculate the MCC
     mcc2 = matthews_corrcoef(y_test2, y_pred2)
 
+    # Total number of samples in the dataset
+    num_resistant2 = target['Ceftriaxone_Resistance'].value_counts()[1]
+    num_susceptible2 = target['Ceftriaxone_Resistance'].value_counts()[0]
+    total_samples2 = len(ceftriaxone_target)
+
+    # Number of samples in the training set
+    num_train_samples2 = len(X_train2)
+
+    # Number of samples in the testing set
+    num_test_samples2 = len(X_test2)
+
     # Plot the ROC curve
     fig, ax = plt.subplots()
     ax.plot(fpr2, tpr2, label='ROC curve (area = %.2f)' % auc2)
@@ -253,6 +269,17 @@ def modeldetails(request):
 
     # Calculate the MCC
     mcc3 = matthews_corrcoef(y_test3, y_pred3)
+   
+    # Total number of samples in the dataset
+    num_resistant3 = target['Ciprofloxacin_Resistance'].value_counts()[1]
+    num_susceptible3 = target['Ciprofloxacin_Resistance'].value_counts()[0]
+    total_samples3 = len(ciprofloxacin_target)
+
+    # Number of samples in the training set
+    num_train_samples3 = len(X_train3)
+
+    # Number of samples in the testing set
+    num_test_samples3 = len(X_test3)
 
     # Plot the ROC curve
     fig, ax = plt.subplots()
@@ -295,6 +322,17 @@ def modeldetails(request):
     # Calculate the MCC
     mcc4 = matthews_corrcoef(y_test4, y_pred4)
 
+    # Total number of samples in the dataset
+    num_resistant4 = target['Gentamicin_Resistance'].value_counts()[1]
+    num_susceptible4 = target['Gentamicin_Resistance'].value_counts()[0]
+    total_samples4 = len(gentamicin_target)
+
+    # Number of samples in the training set
+    num_train_samples4 = len(X_train4)
+
+    # Number of samples in the testing set
+    num_test_samples4 = len(X_test4)
+
     # Plot the ROC curve
     fig, ax = plt.subplots()
     ax.plot(fpr4, tpr4, label='ROC curve (area = %.2f)' % auc4)
@@ -336,6 +374,17 @@ def modeldetails(request):
     # Calculate the MCC
     mcc5 = matthews_corrcoef(y_test5, y_pred5)
 
+    # Total number of samples in the dataset
+    num_resistant5 = target['Levofloxacin_Resistance'].value_counts()[1]
+    num_susceptible5 = target['Levofloxacin_Resistance'].value_counts()[0]
+    total_samples5 = len(levofloxacin_target)
+
+    # Number of samples in the training set
+    num_train_samples5 = len(X_train5)
+
+    # Number of samples in the testing set
+    num_test_samples5 = len(X_test5)
+
     # Plot the ROC curve
     fig, ax = plt.subplots()
     ax.plot(fpr5, tpr5, label='ROC curve (area = %.2f)' % auc5)
@@ -360,11 +409,11 @@ def modeldetails(request):
 
     # Pass the metrics scores to the template
     context = {
-        'accuracy1': accuracy1, 'precision1': precision1, 'recall1': recall1, 'mcc1':mcc1, 'auc1':auc1,
-        'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2,
-        'accuracy3': accuracy3, 'precision3': precision3, 'recall3': recall3, 'mcc3':mcc3, 'auc3':auc3,
-        'accuracy4': accuracy4, 'precision4': precision4, 'recall4': recall4, 'mcc4':mcc4, 'auc4':auc4,
-        'accuracy5': accuracy5, 'precision5': precision5, 'recall5': recall5, 'mcc5':mcc5, 'auc5':auc5
+        'accuracy1': accuracy1, 'precision1': precision1, 'recall1': recall1, 'mcc1':mcc1, 'auc1':auc1, 'num_test_samples1':num_test_samples1, 'num_train_samples1':num_train_samples1, 'num_resistant1':num_resistant1,'num_susceptible1':num_susceptible1, 'total_samples1':total_samples1,
+        'accuracy2': accuracy2, 'precision2': precision2, 'recall2': recall2, 'mcc2':mcc2, 'auc2':auc2, 'num_test_samples2':num_test_samples2, 'num_train_samples2':num_train_samples2, 'num_resistant2':num_resistant2,'num_susceptible2':num_susceptible2, 'total_samples2':total_samples2,
+        'accuracy3': accuracy3, 'precision3': precision3, 'recall3': recall3, 'mcc3':mcc3, 'auc3':auc3, 'num_test_samples3':num_test_samples3, 'num_train_samples3':num_train_samples3, 'num_resistant3':num_resistant3,'num_susceptible3':num_susceptible3, 'total_samples3':total_samples3,
+        'accuracy4': accuracy4, 'precision4': precision4, 'recall4': recall4, 'mcc4':mcc4, 'auc4':auc4, 'num_test_samples4':num_test_samples4, 'num_train_samples4':num_train_samples4, 'num_resistant4':num_resistant4,'num_susceptible4':num_susceptible4, 'total_samples4':total_samples4,
+        'accuracy5': accuracy5, 'precision5': precision5, 'recall5': recall5, 'mcc5':mcc5, 'auc5':auc5, 'num_test_samples5':num_test_samples5, 'num_train_samples5':num_train_samples5, 'num_resistant5':num_resistant5,'num_susceptible5':num_susceptible5, 'total_samples5':total_samples5
     }
     return render(request, 'modeldetails.html', context)
 

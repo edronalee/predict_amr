@@ -63,13 +63,16 @@
           <div class="card-body">
             <h5 class="card-title">Number of Samples</h5>
             <h6 class="card-subtitle mb-2 text-muted">Samples in dataset</h6>
-            <p class="card-text">Resistant: <br>
-              Susceptible: <br>
-              Total: <br> </p>
+            <p class="card-text">
+              <b>Resistant:</b> <span id="resistant"></span><br>
+              <b>Susceptible:</b> <span id="susceptible"></span><br>
+              <b>Total:</b> <span id="total"></span><br> 
+            </p>
             <h6 class="card-subtitle mb-2 text-muted">Samples in training & testing set</h6>
-            <p class="card-text">Training set: <br>
-              Testing set: <br>
-              </p>
+            <p class="card-text">
+              <b>Training set:</b> <span id="trainingset"></span><br>
+              <b>Testing set:</b> <span id="testingset"></span><br>
+            </p>
           </div>
         </div>
       </div>
@@ -116,6 +119,11 @@
       // Update the performance statistics based on the selected antibiotic option
         if (selectedOption === "1") {
           document.getElementById("model").innerText = "Support Vector Machine";
+          document.getElementById("resistant").innerText = "{{ num_resistant1 }}";
+          document.getElementById("susceptible").innerText = "{{ num_susceptible1 }}";
+          document.getElementById("total").innerText = "{{ total_samples1 }}";
+          document.getElementById("trainingset").innerText = "{{ num_train_samples1 }}";
+          document.getElementById("testingset").innerText = "{{ num_test_samples1 }}";
           document.getElementById("accuracy").innerText = "{{ accuracy1 }}";
           document.getElementById("precision").innerText = "{{ precision1 }}";
           document.getElementById("recall").innerText = "{{ recall1 }}";
@@ -127,6 +135,11 @@
         } 
         else if (selectedOption === "2") {
           document.getElementById("model").innerText = "Random Forest";
+          document.getElementById("resistant").innerText = "{{ num_resistant2 }}";
+          document.getElementById("susceptible").innerText = "{{ num_susceptible2 }}";
+          document.getElementById("total").innerText = "{{ total_samples2 }}";
+          document.getElementById("trainingset").innerText = "{{ num_train_samples2 }}";
+          document.getElementById("testingset").innerText = "{{ num_test_samples2 }}";
           document.getElementById("accuracy").innerText = "{{ accuracy2 }}";
           document.getElementById("precision").innerText = "{{ precision2 }}";
           document.getElementById("recall").innerText = "{{ recall2 }}";
@@ -137,6 +150,11 @@
         }
         else if (selectedOption === "3") {
           document.getElementById("model").innerText = "Extreme Gradient Boost";
+          document.getElementById("resistant").innerText = "{{ num_resistant3 }}";
+          document.getElementById("susceptible").innerText = "{{ num_susceptible3 }}";
+          document.getElementById("total").innerText = "{{ total_samples3 }}";
+          document.getElementById("trainingset").innerText = "{{ num_train_samples3 }}";
+          document.getElementById("testingset").innerText = "{{ num_test_samples3 }}";
           document.getElementById("accuracy").innerText = "{{ accuracy3 }}";
           document.getElementById("precision").innerText = "{{ precision3 }}";
           document.getElementById("recall").innerText = "{{ recall3 }}";
@@ -147,6 +165,11 @@
         }
         else if (selectedOption === "4") {
           document.getElementById("model").innerText = "Extreme Gradient Boost";
+          document.getElementById("resistant").innerText = "{{ num_resistant4 }}";
+          document.getElementById("susceptible").innerText = "{{ num_susceptible4 }}";
+          document.getElementById("total").innerText = "{{ total_samples4 }}";
+          document.getElementById("trainingset").innerText = "{{ num_train_samples4 }}";
+          document.getElementById("testingset").innerText = "{{ num_test_samples4 }}";
           document.getElementById("accuracy").innerText = "{{ accuracy4 }}";
           document.getElementById("precision").innerText = "{{ precision4 }}";
           document.getElementById("recall").innerText = "{{ recall4 }}";
@@ -157,6 +180,11 @@
         }
         else if (selectedOption === "5") {
           document.getElementById("model").innerText = "Extreme Gradient Boost";
+          document.getElementById("resistant").innerText = "{{ num_resistant5 }}";
+          document.getElementById("susceptible").innerText = "{{ num_susceptible5 }}";
+          document.getElementById("total").innerText = "{{ total_samples5 }}";
+          document.getElementById("trainingset").innerText = "{{ num_train_samples5 }}";
+          document.getElementById("testingset").innerText = "{{ num_test_samples5 }}";
           document.getElementById("accuracy").innerText = "{{ accuracy5 }}";
           document.getElementById("precision").innerText = "{{ precision5 }}";
           document.getElementById("recall").innerText = "{{ recall5 }}";
