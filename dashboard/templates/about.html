@@ -38,15 +38,26 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">In Silico Antibiogram Tool</h5>
-          <p class="card-text">This web-based application built on the machine learning model aims to deliver early detection of 
-            AMR in pathogens and prescription of more effective antibiotics. <br><br>
-            a. The application can read a whole-genome sequencing data in FASTA format.<br>
-            b. The application displays the predicted antibiograms. <br>
-            c. The application has a section that displays if integron is present and AMR genes detected on WGS. <br>
-            d. The application has demo samples of bacteria isolates for users to see how the application works. <br>
-            e. The application has a section where the user can see the details of prediction models, such as performance summary, that was used to train the data set.</p>
+          <p class="card-text">This application provides a machine learning approach for resistance prediction that may accelerate the treatment of patients in the future. It is beneficial for clinicians, as it can guide in making a faster decision on what type of effective antibiotic regimens are needed by a patient.<br><br>
+          a. The app reads FASTA format whole-genome sequencing data. <br>
+          b. The app shows predicted antibiograms. <br>
+          c. The app displays integron presence and detected AMR genes on WGS. <br>
+          d. The app provides demo samples of bacteria isolates. <br>
+          e. The app presents details of prediction models used for training, including performance summary.</p>
         </div>
       </div>
+
+      <br>
+
+      <div class="card w-75 mx-auto">
+        <img class="card-img-top" src="{% static 'ast.jpg' %}" style="object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">According to the WHO, the AMR is one of the top 10 globlal public health threats in the world.</h5>
+          <p class="card-text">It is established that mutations and integrons contribute to the spread of resistance genes among bacteria leading to accelerated AMR. This application presents a novel approach in predicting AMR based on the presence of integrons and AMR genes on whole-genome sequence (WGS) of common infection-causing bacteria using machine learning.</p>
+        </div>
+      </div>
+
+      <br>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

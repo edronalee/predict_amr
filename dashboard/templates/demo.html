@@ -42,9 +42,11 @@
         <div class="input-group mb-3">
           <select class="custom-select" id="inputGroupSelect02">
             <option selected>Some available samples</option>
-            <option value="1">E. coli</option>
-            <option value="2">K. pneumoniae</option>
-            <option value="3">A. baumannii</option>
+            <option value="1">Escherichia coli - SAMN06311517</option>
+            <option value="2">Klebsiella pneumoniae - SAMN05774081</option>
+            <option value="3">Acinetobacter baumannii - SAMN04549829</option>
+            <option value="4">Escherichia coli - SAMN04096283</option>
+            <option value="5">Klebsiella pneumoniae - SAMN07325896</option>
           </select>
           <div class="input-group-append">
             <label class="input-group-text" for="inputGroupSelect02">Options</label>
@@ -71,23 +73,23 @@
               <tbody>
                 <tr>
                   <td>Cefotaxime</td>
-                  <td>-</td>
+                  <td><span id="cefotaxime_pred"></span></td>
                 </tr>
                 <tr>
                   <td>Ceftriaxone</td>
-                  <td>-</td>
+                  <td><span id="ceftriaxone_pred"></span></td>
                 </tr>
                 <tr>
                   <td>Ciprofloxacin</td>
-                  <td>-</td>
+                  <td><span id="ciprofloxacin_pred"></span></td>
                 </tr>
                 <tr>
                   <td>Gentamicin</td>
-                  <td>-</td>
+                  <td><span id="gentamicin_pred"></span></td>
                 </tr>
                 <tr>
                   <td>Levofloxacin</td>
-                  <td>-</td>
+                  <td><span id="levofloxacin_pred"></span></td>
                 </tr>
               </tbody>
             </table>
@@ -103,13 +105,13 @@
               <thead>
                 <tr>
                   <th scope="row">Integron:</th>
-                  <td scope="col">{% if integron_presence == 0 %} Integron not found {% elif integron_presence == 1 %} Integron found {% else %} {% endif %}</td>
+                  <td scope="col"><span id="integron"></span></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">AMR Genes:</th>
-                  <td>{{ abricate_gene_products | join:", "}}</td>
+                  <td><span id="amr_genes"></span></td>
                 </tr>
               </tbody>
             </table>
@@ -117,6 +119,64 @@
         </div>
       </div>
     </div>
+
+    <script>
+      // Add an event listener to the dropdown menu
+      var dropdown = document.getElementById("inputGroupSelect02");
+      dropdown.addEventListener("change", function() {
+        var selectedOption = dropdown.value;
+        updatePerformanceStats(selectedOption);
+      });
+
+      function updatePerformanceStats(selectedOption) {
+      // Update the performance statistics based on the selected antibiotic option
+        if (selectedOption === "1") {
+          document.getElementById("cefotaxime_pred").innerText = "Resistant";
+          document.getElementById("ceftriaxone_pred").innerText = "Susceptible";
+          document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("gentamicin_pred").innerText = "Susceptible";
+          document.getElementById("levofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("integron").innerText = "Integron found";
+          document.getElementById("amr_genes").innerText = "mph(A), mdf(A), ant(3'')-Ia, blaTEM-1B, aph(3'')-Ib, aph(6)-Id, sul2, erm(B), blaCTX-M-15, dfrA1, tet(B)";
+        } 
+        else if (selectedOption === "2") {
+          document.getElementById("cefotaxime_pred").innerText = "Resistant";
+          document.getElementById("ceftriaxone_pred").innerText = "Resistant";
+          document.getElementById("ciprofloxacin_pred").innerText = "Resistant";
+          document.getElementById("gentamicin_pred").innerText = "Resistant";
+          document.getElementById("levofloxacin_pred").innerText = "Resistant";
+          document.getElementById("integron").innerText = "Integron found";
+          document.getElementById("amr_genes").innerText = "oqxA, dfrA14, blaTEM-1B, sul2, aph(3'')-Ib, aph(6)-Id, qnrB1, oqxB, fosA6, blaCTX-M-15, tet(A), aac(3)-IIa, blaOXA-1, aac(6')-Ib-cr, blaSHV-106";
+        }
+        else if (selectedOption === "3") {
+          document.getElementById("cefotaxime_pred").innerText = "Resistant";
+          document.getElementById("ceftriaxone_pred").innerText = "Resistant";
+          document.getElementById("ciprofloxacin_pred").innerText = "Resistant";
+          document.getElementById("gentamicin_pred").innerText = "Resistant";
+          document.getElementById("levofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("integron").innerText = "Integron found";
+          document.getElementById("amr_genes").innerText = "sul1, blaTEM-1D, catA1, ant(3'')-Ia, tet(A), blaADC-25, blaOXA-69, aph(3')-Ia, aac(3)-Ia";
+        }
+        else if (selectedOption === "4") {
+          document.getElementById("cefotaxime_pred").innerText = "Resistant";
+          document.getElementById("ceftriaxone_pred").innerText = "Resistant";
+          document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("gentamicin_pred").innerText = "Resistant";
+          document.getElementById("levofloxacin_pred").innerText = "Resistant";
+          document.getElementById("integron").innerText = "Integron found";
+          document.getElementById("amr_genes").innerText = "mdf(A), ant(3'')-Ia, blaCTX-M-55, blaTEM-1B, dfrA14, sul3, aac(3)-IIa, aph(3')-Ia, qnrS1, floR";
+        }
+        else if (selectedOption === "5") {
+          document.getElementById("cefotaxime_pred").innerText = "Resistant";
+          document.getElementById("ceftriaxone_pred").innerText = "Resistant";
+          document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("gentamicin_pred").innerText = "Resistant";
+          document.getElementById("levofloxacin_pred").innerText = "Resistant";
+          document.getElementById("integron").innerText = "Integron found";
+          document.getElementById("amr_genes").innerText = "oqxA, blaCTX-M-156, dfrA14, blaTEM-1B, sul2, aph(3'')-Ib, aph(6)-Id, qnrB1, fosA6, oqxB, blaCTX-M-15, tet(A), aac(3)-IIa, blaSHV-110, blaOXA-1, aac(6')-Ib-cr";
+        }
+      }
+    </script>
   
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
