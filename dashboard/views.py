@@ -10,9 +10,9 @@ import joblib
 import pickle
 cefotaxime_svm_model = joblib.load('cefotaxime_svm_model.pkl')
 ceftriaxone_rf_model = joblib.load('ceftriaxone_rf_model.pkl')
-ciprofloxacin_xgboost_model = joblib.load('ciprofloxacin_xgboost_model.pkl')
+ciprofloxacin_rf_model = joblib.load('ciprofloxacin_rf_model.pkl')
 gentamicin_xgboost_model = joblib.load('gentamicin_xgboost_model.pkl')
-levofloxacin_xgboost_model = joblib.load('levofloxacin_xgboost_model.pkl')
+levofloxacin_rf_model = joblib.load('levofloxacin_rf_model.pkl')
 
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -79,16 +79,27 @@ def antibiogram(request):
 
             # Get the list of AMR genes used during training from the SVM model excluding the integron_presence column
             amr_genes = [
-                        "ARR-3", "aac(3)-IIa", "aac(3)-IId", "aac(3)-Ia", "aac(6')-31", "aac(6')-IIa", "aac(6')-Iaf", "aac(6')-Ib", "aac(6')-Ib-cr", "aadA", "aadA1", "aadA2", "aadA4", "aadA5", "aadA6",
-                        "ant(2'')-Ia", "ant(3'')-Ia", "ant(3'')-Ii-aac(6')-IId", "aph(3'')-Ib", "aph(3')-Ia", "aph(3')-VI", "aph(3')-VIa", "aph(6)-Id", "armA", "blaADC-25", "blaCMY-2",
-                        "blaCMY-4", "blaCTX-M-1", "blaCTX-M-122", "blaCTX-M-139", "blaCTX-M-14", "blaCTX-M-14b", "blaCTX-M-15", "blaCTX-M-2", "blaCTX-M-27", "blaCTX-M-3", "blaCTX-M-55",
-                        "blaGES-14", "blaIMP-1", "blaIMP-19", "blaIMP-68", "blaKPC-3", "blaNDM-1", "blaNDM-4", "blaNDM-5", "blaOXA-1", "blaOXA-10", "blaOXA-100", "blaOXA-106", "blaOXA-120",
-                        "blaOXA-121", "blaOXA-124", "blaOXA-126", "blaOXA-2", "blaOXA-208", "blaOXA-23", "blaOXA-235", "blaOXA-314", "blaOXA-407", "blaOXA-430", "blaOXA-510", "blaOXA-64",
-                        "blaOXA-65", "blaOXA-66", "blaOXA-69", "blaOXA-9", "blaOXA-90", "blaOXA-94", "blaOXA-98", "blaSHV-101", "blaSHV-106", "blaSHV-108", "blaSHV-11", "blaSHV-110",
-                        "blaSHV-12",  "blaSHV-14", "blaSHV-182", "blaSHV-187", "blaSHV-27", "blaSHV-30", "blaSHV-33", "blaSHV-76", "blaTEM-141", "blaTEM-1A", "blaTEM-1B", "blaTEM-1D", "blaVIM-1",
-                        "blaVIM-11", "catA1", "catB8", "cmlA1", "dfrA1", "dfrA12", "dfrA14", "dfrA15", "dfrA17", "dfrA26", "dfrA5", "erm(B)", "floR", "fosA", "fosA6", "fosA7", "mdf(A)", "mph(A)",
-                        "mph(E)", "msr(E)", "npmA", "oqxA", "oqxB", "qepA1", "qnrA1", "qnrB1", "qnrB19", "qnrB4", "qnrB6", "qnrB9", "qnrS1", "rmtB", "rmtC", "rmtF", "sul1", "sul2", "tet(A)", "tet(B)"
-                        ]
+                "ARR-3", "aac(3)-IIa", "aac(3)-IId", "aac(3)-IVa", "aac(3)-Ia", "aac(6')-IIa", "aac(6')-Iaf",
+                "aac(6')-Ian", "aac(6')-Ib", "aac(6')-Ib-cr", "aadA", "aadA1", "aadA16", "aadA17", "aadA2",
+                "aadA5", "aadA6", "ant(2'')-Ia", "ant(3'')-Ia", "aph(3'')-Ib", "aph(3')-Ia", "aph(3')-VI",
+                "aph(3')-VIa", "aph(3')-XV", "aph(4)-Ia", "aph(6)-Id", "armA", "blaADC-25", "blaCARB-10",
+                "blaCARB-16", "blaCMY-2", "blaCMY-4", "blaCMY-42", "blaCMY-6", "blaCMY-94", "blaCTX-M-1",
+                "blaCTX-M-139", "blaCTX-M-14", "blaCTX-M-15", "blaCTX-M-27", "blaCTX-M-3", "blaCTX-M-55",
+                "blaIMP-4", "blaKPC-2", "blaKPC-3", "blaNDM-1", "blaOXA-1", "blaOXA-10", "blaOXA-100",
+                "blaOXA-106", "blaOXA-120", "blaOXA-121", "blaOXA-124", "blaOXA-126", "blaOXA-181", "blaOXA-2",
+                "blaOXA-203", "blaOXA-208", "blaOXA-217", "blaOXA-23", "blaOXA-235", "blaOXA-259", "blaOXA-260",
+                "blaOXA-314", "blaOXA-343", "blaOXA-407", "blaOXA-413", "blaOXA-430", "blaOXA-510", "blaOXA-528",
+                "blaOXA-529", "blaOXA-531", "blaOXA-558", "blaOXA-58", "blaOXA-64", "blaOXA-65", "blaOXA-66",
+                "blaOXA-69", "blaOXA-72", "blaOXA-88", "blaOXA-9", "blaOXA-90", "blaOXA-91", "blaOXA-94",
+                "blaOXA-98", "blaPER-1", "blaSHV-101", "blaSHV-106", "blaSHV-108", "blaSHV-11", "blaSHV-110",
+                "blaSHV-12", "blaSHV-14", "blaSHV-145", "blaSHV-182", "blaSHV-187", "blaSHV-26", "blaSHV-27",
+                "blaSHV-30", "blaSHV-33", "blaSHV-76", "blaTEM-141", "blaTEM-1A", "blaTEM-1B", "blaTEM-1D",
+                "blaVIM-1", "catA1", "catA2", "catB2", "catB3", "catB8", "cmlA1",
+                "dfrA1", "dfrA12", "dfrA14", "dfrA17", "dfrA26", "dfrA27", "dfrA29", "dfrA8", "ere(A)", "erm(42)",
+                "erm(B)", "floR", "fosA", "fosA5", "fosA6", "fosA7", "mdf(A)", "mph(A)", "mph(E)", "msr(E)",
+                "oqxA", "oqxB", "qnrB1", "qnrB19", "qnrB2", "qnrB4", "qnrB9", "qnrS1", "rmtB", "rmtC", "rmtF",
+                "sul1", "sul2", "sul3", "tet(39)", "tet(A)", "tet(B)", "tet(G)"
+            ]
             
             # Initialize an empty dictionary to store the feature values
             feature_values = {}
@@ -109,16 +120,16 @@ def antibiogram(request):
             # Load the ML models
             cefotaxime_svm_model = joblib.load('cefotaxime_svm_model.pkl')
             ceftriaxone_rf_model = joblib.load('ceftriaxone_rf_model.pkl')
-            ciprofloxacin_xgboost_model = joblib.load('ciprofloxacin_xgboost_model.pkl')
+            ciprofloxacin_rf_model = joblib.load('ciprofloxacin_rf_model.pkl')
             gentamicin_xgboost_model = joblib.load('gentamicin_xgboost_model.pkl')
-            levofloxacin_xgboost_model = joblib.load('levofloxacin_xgboost_model.pkl')
+            levofloxacin_rf_model = joblib.load('levofloxacin_rf_model.pkl')
 
             # Perform prediction using the models
             cefotaxime_prediction = cefotaxime_svm_model.predict(features_df)
             ceftriaxone_prediction = ceftriaxone_rf_model.predict(features_df)
-            ciprofloxacin_prediction = ciprofloxacin_xgboost_model.predict(features_df)
+            ciprofloxacin_prediction = ciprofloxacin_rf_model.predict(features_df)
             gentamicin_prediction = gentamicin_xgboost_model.predict(features_df)
-            levofloxacin_prediction = levofloxacin_xgboost_model.predict(features_df)
+            levofloxacin_prediction = levofloxacin_rf_model.predict(features_df)
 
             context = {'cefotaxime_prediction':cefotaxime_prediction, 'ceftriaxone_prediction':ceftriaxone_prediction,
                         'ciprofloxacin_prediction':ciprofloxacin_prediction, 'gentamicin_prediction':gentamicin_prediction,
@@ -140,8 +151,12 @@ def modeldetails(request):
     levofloxacin_target = target['Levofloxacin_Resistance']
 
     # ----- Cefotaxime -----
+    # Cefotaxime has missing values, drop the rows
+    data1 = pd.concat([features_data, cefotaxime_target], axis=1)
+    data1 = data1.dropna(subset=['Cefotaxime_Resistance'])
+
     # Split the data into training and testing sets
-    X_train1, X_test1, y_train1, y_test1 = train_test_split(features_data, cefotaxime_target, test_size=0.3, random_state=42)
+    X_train1, X_test1, y_train1, y_test1 = train_test_split(data1[features_data.columns], data1['Cefotaxime_Resistance'], test_size=0.3, random_state=6)
 
     # Make predictions on the test set using the loaded model
     y_pred1 = cefotaxime_svm_model.predict(X_test1)
@@ -159,9 +174,9 @@ def modeldetails(request):
     mcc1 = matthews_corrcoef(y_test1, y_pred1)
 
     # Total number of samples in the dataset
-    num_resistant1 = target['Cefotaxime_Resistance'].value_counts()[1]
-    num_susceptible1 = target['Cefotaxime_Resistance'].value_counts()[0]
-    total_samples1 = len(cefotaxime_target)
+    num_resistant1 = data1['Cefotaxime_Resistance'].value_counts()[1]
+    num_susceptible1 = data1['Cefotaxime_Resistance'].value_counts()[0]
+    total_samples1 = len(data1)
 
     # Number of samples in the training set
     num_train_samples1 = len(X_train1)
@@ -193,8 +208,12 @@ def modeldetails(request):
 
 
     # ----- Ceftriaxone -----
+    # Ceftriaxone has missing values, drop the rows
+    data2 = pd.concat([features_data, ceftriaxone_target], axis=1)
+    data2 = data2.dropna(subset=['Ceftriaxone_Resistance'])
+
     # Split the data into training and testing sets
-    X_train2, X_test2, y_train2, y_test2 = train_test_split(features_data, ceftriaxone_target, test_size=0.3, random_state=42)
+    X_train2, X_test2, y_train2, y_test2 = train_test_split(data2[features_data.columns], data2['Ceftriaxone_Resistance'], test_size=0.3, random_state=4)
 
     # Make predictions on the test set using the loaded model
     y_pred2 = ceftriaxone_rf_model.predict(X_test2)
@@ -212,9 +231,9 @@ def modeldetails(request):
     mcc2 = matthews_corrcoef(y_test2, y_pred2)
 
     # Total number of samples in the dataset
-    num_resistant2 = target['Ceftriaxone_Resistance'].value_counts()[1]
-    num_susceptible2 = target['Ceftriaxone_Resistance'].value_counts()[0]
-    total_samples2 = len(ceftriaxone_target)
+    num_resistant2 = data2['Ceftriaxone_Resistance'].value_counts()[1]
+    num_susceptible2 = data2['Ceftriaxone_Resistance'].value_counts()[0]
+    total_samples2 = len(data2)
 
     # Number of samples in the training set
     num_train_samples2 = len(X_train2)
@@ -246,10 +265,10 @@ def modeldetails(request):
 
     # ----- Ciprofloxacin -----
     # Split the data into training and testing sets
-    X_train3, X_test3, y_train3, y_test3 = train_test_split(features_data, ciprofloxacin_target, test_size=0.3, random_state=4)
+    X_train3, X_test3, y_train3, y_test3 = train_test_split(features_data, ciprofloxacin_target, test_size=0.3, random_state=72)
 
     # Make predictions on the test set using the loaded model
-    y_pred3 = ciprofloxacin_xgboost_model.predict(X_test3)
+    y_pred3 = ciprofloxacin_rf_model.predict(X_test3)
 
     # Calculate the metrics using the test data and predictions
     accuracy3 = accuracy_score(y_test3, y_pred3)
@@ -298,7 +317,7 @@ def modeldetails(request):
 
     # ----- Gentamicin -----
     # Split the data into training and testing sets
-    X_train4, X_test4, y_train4, y_test4 = train_test_split(features_data, gentamicin_target, test_size=0.3, random_state=3)
+    X_train4, X_test4, y_train4, y_test4 = train_test_split(features_data, gentamicin_target, test_size=0.3, random_state=2)
 
     # Make predictions on the test set using the loaded model
     y_pred4 = gentamicin_xgboost_model.predict(X_test4)
@@ -349,11 +368,15 @@ def modeldetails(request):
 
 
     # ----- Levofloxacin -----
+    # Levofloxacin has missing values, drop the rows
+    data3 = pd.concat([features_data, levofloxacin_target], axis=1)
+    data3 = data3.dropna(subset=['Levofloxacin_Resistance'])
+
     # Split the data into training and testing sets
-    X_train5, X_test5, y_train5, y_test5 = train_test_split(features_data, levofloxacin_target, test_size=0.3, random_state=42)
+    X_train5, X_test5, y_train5, y_test5 = train_test_split(data3[features_data.columns], data3['Levofloxacin_Resistance'], test_size=0.3, random_state=38)
 
     # Make predictions on the test set using the loaded model
-    y_pred5 = levofloxacin_xgboost_model.predict(X_test5)
+    y_pred5 = levofloxacin_rf_model.predict(X_test5)
 
     # Calculate the metrics using the test data and predictions
     accuracy5 = accuracy_score(y_test5, y_pred5)
@@ -368,9 +391,9 @@ def modeldetails(request):
     mcc5 = matthews_corrcoef(y_test5, y_pred5)
 
     # Total number of samples in the dataset
-    num_resistant5 = target['Levofloxacin_Resistance'].value_counts()[1]
-    num_susceptible5 = target['Levofloxacin_Resistance'].value_counts()[0]
-    total_samples5 = len(levofloxacin_target)
+    num_resistant5 = data3['Levofloxacin_Resistance'].value_counts()[1]
+    num_susceptible5 = data3['Levofloxacin_Resistance'].value_counts()[0]
+    total_samples5 = len(data3)
 
     # Number of samples in the training set
     num_train_samples5 = len(X_train5)

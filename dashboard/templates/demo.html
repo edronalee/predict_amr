@@ -132,12 +132,12 @@
       // Update the performance statistics based on the selected antibiotic option
         if (selectedOption === "1") {
           document.getElementById("cefotaxime_pred").innerText = "Resistant";
-          document.getElementById("ceftriaxone_pred").innerText = "Susceptible";
+          document.getElementById("ceftriaxone_pred").innerText = "Resistant";
           document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
           document.getElementById("gentamicin_pred").innerText = "Susceptible";
           document.getElementById("levofloxacin_pred").innerText = "Susceptible";
           document.getElementById("integron").innerText = "Integron found";
-          document.getElementById("amr_genes").innerText = "mph(A), mdf(A), ant(3'')-Ia, blaTEM-1B, aph(3'')-Ib, aph(6)-Id, sul2, erm(B), blaCTX-M-15, dfrA1, tet(B)";
+          document.getElementById("amr_genes").innerText = "aph(6)-Id, aph(3'')-Ib, blaCTX-M-15, mdf(A), erm(B), blaTEM-1B, tet(B), dfrA1, mph(A), ant(3'')-Ia, sul2";
         } 
         else if (selectedOption === "2") {
           document.getElementById("cefotaxime_pred").innerText = "Resistant";
@@ -146,7 +146,7 @@
           document.getElementById("gentamicin_pred").innerText = "Resistant";
           document.getElementById("levofloxacin_pred").innerText = "Resistant";
           document.getElementById("integron").innerText = "Integron found";
-          document.getElementById("amr_genes").innerText = "oqxA, dfrA14, blaTEM-1B, sul2, aph(3'')-Ib, aph(6)-Id, qnrB1, oqxB, fosA6, blaCTX-M-15, tet(A), aac(3)-IIa, blaOXA-1, aac(6')-Ib-cr, blaSHV-106";
+          document.getElementById("amr_genes").innerText = "oqxB, aph(6)-Id, qnrB1, fosA6, blaCTX-M-15, aph(3'')-Ib, aac(3)-IIa, blaTEM-1B, aac(6')-Ib-cr, blaOXA-1, tet(A), dfrA14, blaSHV-106, oqxA, sul2";
         }
         else if (selectedOption === "3") {
           document.getElementById("cefotaxime_pred").innerText = "Resistant";
@@ -155,25 +155,25 @@
           document.getElementById("gentamicin_pred").innerText = "Resistant";
           document.getElementById("levofloxacin_pred").innerText = "Susceptible";
           document.getElementById("integron").innerText = "Integron found";
-          document.getElementById("amr_genes").innerText = "sul1, blaTEM-1D, catA1, ant(3'')-Ia, tet(A), blaADC-25, blaOXA-69, aph(3')-Ia, aac(3)-Ia";
+          document.getElementById("amr_genes").innerText = "catA1, aac(3)-Ia, blaTEM-1D, tet(A), aph(3')-Ia, sul1, blaADC-25, ant(3'')-Ia, blaOXA-69";
         }
         else if (selectedOption === "4") {
           document.getElementById("cefotaxime_pred").innerText = "Resistant";
           document.getElementById("ceftriaxone_pred").innerText = "Resistant";
-          document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("ciprofloxacin_pred").innerText = "Resistant";
           document.getElementById("gentamicin_pred").innerText = "Resistant";
           document.getElementById("levofloxacin_pred").innerText = "Resistant";
           document.getElementById("integron").innerText = "Integron found";
-          document.getElementById("amr_genes").innerText = "mdf(A), ant(3'')-Ia, blaCTX-M-55, blaTEM-1B, dfrA14, sul3, aac(3)-IIa, aph(3')-Ia, qnrS1, floR";
+          document.getElementById("amr_genes").innerText = "mdf(A), aac(3)-IIa, blaTEM-1B, sul3, aph(3')-Ia, qnrS1, blaCTX-M-55, ant(3'')-Ia, dfrA14, floR";
         }
         else if (selectedOption === "5") {
           document.getElementById("cefotaxime_pred").innerText = "Resistant";
           document.getElementById("ceftriaxone_pred").innerText = "Resistant";
-          document.getElementById("ciprofloxacin_pred").innerText = "Susceptible";
+          document.getElementById("ciprofloxacin_pred").innerText = "Resistant";
           document.getElementById("gentamicin_pred").innerText = "Resistant";
           document.getElementById("levofloxacin_pred").innerText = "Resistant";
           document.getElementById("integron").innerText = "Integron found";
-          document.getElementById("amr_genes").innerText = "oqxA, blaCTX-M-156, dfrA14, blaTEM-1B, sul2, aph(3'')-Ib, aph(6)-Id, qnrB1, fosA6, oqxB, blaCTX-M-15, tet(A), aac(3)-IIa, blaSHV-110, blaOXA-1, aac(6')-Ib-cr";
+          document.getElementById("amr_genes").innerText = "oqxB, aph(6)-Id, qnrB1, fosA6, blaCTX-M-15, aph(3'')-Ib, aac(3)-IIa, blaTEM-1B, aac(6')-Ib-cr, blaOXA-1, blaCTX-M-156, tet(A), dfrA14, blaSHV-110, oqxA, sul2";
         }
       }
     </script>

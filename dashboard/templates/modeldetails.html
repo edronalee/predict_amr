@@ -149,7 +149,7 @@
           document.getElementById("cm").innerHTML = '<img src="{% static "ceftriaxone_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
         else if (selectedOption === "3") {
-          document.getElementById("model").innerText = "Extreme Gradient Boost";
+          document.getElementById("model").innerText = "Random Forest";
           document.getElementById("resistant").innerText = "{{ num_resistant3 }}";
           document.getElementById("susceptible").innerText = "{{ num_susceptible3 }}";
           document.getElementById("total").innerText = "{{ total_samples3 }}";
@@ -179,7 +179,7 @@
           document.getElementById("cm").innerHTML = '<img src="{% static "gentamicin_confusion_matrix.png" %}" alt="Confusion matrix" width="400" height="300">';
         }
         else if (selectedOption === "5") {
-          document.getElementById("model").innerText = "Extreme Gradient Boost";
+          document.getElementById("model").innerText = "Random Forest";
           document.getElementById("resistant").innerText = "{{ num_resistant5 }}";
           document.getElementById("susceptible").innerText = "{{ num_susceptible5 }}";
           document.getElementById("total").innerText = "{{ total_samples5 }}";
